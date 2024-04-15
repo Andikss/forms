@@ -1,22 +1,17 @@
-import { Stack } from '@chakra-ui/react'
-import {
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
-} from '@chakra-ui/react'
+import { lazy, Suspense } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { Progress } from '@chakra-ui/react';
 
-function App() {
+const Login = lazy(() => import('./Pages/Login.jsx'));
 
+const App = () => {
   return (
-    <Stack>
-      <Alert status='error'>
-        <AlertIcon />
-        <AlertTitle>Your browser is outdated!</AlertTitle>
-        <AlertDescription>Your Chakra experience may be degraded.</AlertDescription>
-      </Alert>
-    </Stack>
-  )
-}
+    <Suspense fallback={<Progress size="xs" isIndeterminate />}>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </Suspense>
+  );
+};
 
-export default App
+export default App;

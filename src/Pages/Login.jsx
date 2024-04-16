@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Box, Flex, useToast, Image } from '@chakra-ui/react';
-import { LoginForm } from '../Components';
-import { login } from '../Services/Auth/Login';
-import logo from '../Assets/img/logo.png';
+import { LoginForm } from '@/Components';
+import { login } from '@/Services/Auth/Login';
+import logo from '@/Assets/img/logo.png';
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);

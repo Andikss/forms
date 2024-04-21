@@ -1,6 +1,8 @@
-import { Flex, Avatar, Menu, MenuButton, MenuList, MenuItem, Text, Stack, Image } from "@chakra-ui/react";
+/* eslint-disable react/no-children-prop */
+import { Flex, Avatar, Menu, MenuButton, MenuList, MenuItem, Text, Stack, Image, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import logo from '@/Assets/img/logo.png';
+import { FiSearch } from "react-icons/fi";
 
 export const Topbar = () => {
   const [username, setUsername] = useState("");
@@ -47,12 +49,21 @@ export const Topbar = () => {
       left={0}
       boxShadow={hasShadow ? "md" : "none"} 
       transition="box-shadow 0.2s"
+      background="white"
+      zIndex="999"
     >
       <Stack flexDir="row" alignItems="center">
-          <Image src={logo} alt="Logo" boxSize="40px" />
-          <Text fontSize="larger" fontWeight="bold">LKS Forms</Text>
+        <Image src={logo} alt="Logo" boxSize="40px" />
+        <Text fontSize="larger" fontWeight="bold">LKS Forms</Text>
       </Stack>
       <Stack flexDir="row" alignItems="center">
+        <InputGroup width="400px" ml="42px">
+          <InputLeftElement
+            pointerEvents="none"
+            children={<FiSearch color="gray.300" />}
+          />
+          <Input type="text" placeholder="Search..." />
+        </InputGroup>
         <Menu isOpen={isOpen} onOpen={() => setIsOpen(true)} onClose={() => setIsOpen(false)}>
           <Text marginRight="4px" fontWeight="bold">
             {username}

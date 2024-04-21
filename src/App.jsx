@@ -1,9 +1,10 @@
 import { lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Progress } from '@chakra-ui/react';
+import Detail from './Pages/Detail.jsx';
 
 const Login = lazy(() => import('./Pages/Login.jsx'));
-const Home = lazy(() => import('./Pages/Home.jsx'));
+const Home  = lazy(() => import('./Pages/Home.jsx'));
 
 const App = () => {
   return (
@@ -11,6 +12,7 @@ const App = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Home />} />
+        <Route path="/:slug/detail" element={<Detail />} />
       </Routes>
     </Suspense>
   );

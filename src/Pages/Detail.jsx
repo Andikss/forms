@@ -44,13 +44,29 @@ const Detail = () => {
 
   const handleAddOption = (index) => {
     const newQuestions = [...questions];
-    newQuestions[index].options.push('');
-    setQuestions(newQuestions);
+    const question = newQuestions[index];
+  
+    console.log('Before adding option:', question); // Log the question before modification
+  
+    // Check if choices array exists, if not, initialize it
+    if (!question.choices) {
+      question.choices = [''];
+    } else {
+      // If choices array already exists, push an empty string to it
+      question.choices.push('');
+    }
+  
+    console.log('After adding option:', question); // Log the question after modification
+  
+    newQuestions[index] = question; // Update the question in the questions array
+    setQuestions(newQuestions); // Update the state
   };
+  
+  
 
   const handleOptionChange = (questionIndex, optionIndex, value) => {
     const newQuestions = [...questions];
-    newQuestions[questionIndex].options[optionIndex] = value;
+    newQuestions[questionIndex].choices[optionIndex] = value;
     setQuestions(newQuestions);
   };
 
@@ -63,8 +79,14 @@ const Detail = () => {
   const renderAnswerInputs = (questionIndex) => {
     const question = questions[questionIndex];
     
-    // Convert options to array if it's not already one
-    const optionsArray = typeof question.choices === 'string' ? question.choices.split(',') : question.choices;
+    let optionsArray;
+    if (typeof question.choices === 'string') {
+      optionsArray = question.choices.split(',');
+    } else if (Array.isArray(question.choices)) {
+      optionsArray = question.choices;
+    } else {
+      optionsArray = [];
+    }    
   
     switch (question.choice_type) {
       case 'multiple choice':
@@ -77,7 +99,7 @@ const Detail = () => {
                 key={optionIndex}
                 type="text"
                 placeholder={`Option ${optionIndex + 1}`}
-                value={option}
+                value={option} 
                 onChange={(e) => handleOptionChange(questionIndex, optionIndex, e.target.value)}
               />
             ))}

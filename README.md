@@ -28,6 +28,9 @@ Well, that's it! You can manage your forms now 😏
 - React Icon
 - Chakra UI
 
+## Grid (kisi-kisi)
+[See Grid](public/kisi-kisi.pdf)
+
 ## Developer
 
-- [Andika Dwi Saputra](https://andikss.github.io)
+[Andika Dwi Saputra](https://andikss.github.io)

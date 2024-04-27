@@ -1,18 +1,21 @@
-/* eslint-disable react/no-children-prop */
 import { Flex, Avatar, Menu, MenuButton, MenuList, MenuItem, Text, Stack, Image, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import logo from '@/Assets/img/logo.png';
 import { FiSearch } from "react-icons/fi";
+import axios from 'axios';
 
 export const Topbar = () => {
   const [username, setUsername] = useState("");
   const [hasShadow, setHasShadow] = useState(false);
+  const baseURL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
     const userDataString = localStorage.getItem("user");
     if (userDataString) {
       const userData = JSON.parse(userDataString);
       setUsername(userData.name);
+    } else {
+      window.location.href = '/login'
     }
 
     const handleScroll = () => {
@@ -32,8 +35,21 @@ export const Topbar = () => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleLogout = () => {
-    console.log("Logout");
+  const handleLogout = async () => {
+    try {
+      await axios.get(`${baseURL}/auth/logout`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+  
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+  
+      window.location.href = '/login'
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
   };
 
   return (
@@ -58,10 +74,9 @@ export const Topbar = () => {
       </Stack>
       <Stack flexDir="row" alignItems="center">
         <InputGroup width="400px" ml="42px">
-          <InputLeftElement
-            pointerEvents="none"
-            children={<FiSearch color="gray.300" />}
-          />
+          <InputLeftElement pointerEvents="none">
+            <FiSearch color="gray.300" />
+          </InputLeftElement>
           <Input type="text" placeholder="Search..." />
         </InputGroup>
         <Menu isOpen={isOpen} onOpen={() => setIsOpen(true)} onClose={() => setIsOpen(false)}>

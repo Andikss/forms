@@ -18,9 +18,11 @@ const Login = () => {
         title: 'Login successful',
         status: 'success',
         position: 'bottom-right',
-        duration: 5000,
+        duration: 1000,
         isClosable: true,
       });
+
+      window.location.href = '/'
     } catch (error) {
       console.error('Login failed', error);
       toast({
